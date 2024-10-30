@@ -1,9 +1,11 @@
-import {defineField, defineType} from 'sanity'
+import { HomeIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const loHomeBanners = defineType({
-  name: 'lohomebanners',
-  title: 'loHomeBanners',
+  name: 'loHomeBanners',
+  title: 'Home Banners',
   type: 'document',
+  icon: HomeIcon,
   fields: [
     defineField({
       name: 'objectId',
@@ -58,4 +60,18 @@ export const loHomeBanners = defineType({
       type: 'string',
     }),
   ],
-})
+  preview: {
+    select: {
+      title: 'header_1', // or another field you want as the main title
+      categoryName: 'categoryName',
+      objectId: 'objectId',
+    },
+    prepare(selection) {
+      const { title, categoryName, objectId } = selection;
+      return {
+        title: title || 'No Title', // Fallback title if header_1 is not available
+        subtitle: `Category: ${categoryName || 'N/A'}, ID: ${objectId || 'N/A'}`, // Display category and objectId in the subtitle
+      };
+    },
+  },
+});

@@ -12,14 +12,31 @@ import {structureTool} from 'sanity/structure'
 import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schemaTypes'
 import {structure} from './sanity/structure'
+import { dashboardTool, projectInfoWidget, projectUsersWidget } from '@sanity/dashboard'
+import { documentListWidget } from 'sanity-plugin-dashboard-widget-document-list'
+
 
 export default defineConfig({
+  name: "default",
+  title: "Loreal",
   basePath: '/studio',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
   plugins: [
+    dashboardTool({
+      widgets: [
+        projectUsersWidget(),
+        documentListWidget({
+          title: "Last edited",
+          order: "_updatedAt desc",
+          limit: 5,
+          types: ["loArtistsFile","loHomeBanners"],
+        }),
+        projectInfoWidget({ layout: { width: "small" } }),
+      ],
+    }),
     structureTool({structure}),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
