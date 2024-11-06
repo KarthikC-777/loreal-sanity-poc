@@ -53,7 +53,7 @@ export const loHomeBanners = defineType({
     }),
     defineField({
       name: 'order',
-      type: 'string',
+      type: 'number',
     }),
     defineField({
       name: 'deeplinkURL',
