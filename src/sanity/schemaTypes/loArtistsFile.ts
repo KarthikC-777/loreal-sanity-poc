@@ -30,7 +30,7 @@ export const loArtistsFile = defineType({
     }),
     defineField({
       name: 'version',
-      type: 'string',
+      type: 'number',
       validation: (Rule) => Rule.required().error('Version is required'), 
     }),
   ],
